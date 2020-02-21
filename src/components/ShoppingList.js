@@ -15,7 +15,8 @@ export function ShoppingList(props) {
   // Handle removing the item from the cart
   const removeItem = index => event => {
     console.log("Trying to remove index", index, "from the list");
-    // Write your code to handle removing the item from the list
+    const deleteIndex = list.indexOf(index);
+    setList([...list.slice(0, deleteIndex), ...list.slice(deleteIndex + 1)]);
   };
 
   const toggleInCart = index => () => {
@@ -27,7 +28,7 @@ export function ShoppingList(props) {
     <div>
       <ul>
         {list.map((item, index) => (
-          <ShoppingListItem key={index} name={item} />
+          <ShoppingListItem key={index} name={item} onDelete={removeItem} />
         ))}
       </ul>
       <ShoppingListInput onAdd={addItem} />
