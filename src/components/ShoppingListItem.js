@@ -2,7 +2,7 @@ import * as React from "react";
 
 export function ShoppingListItem(props) {
   const handleRemove = () => {
-    props.onDelete(props.name)();
+    props.onDelete(props.index)();
   };
 
   return (
