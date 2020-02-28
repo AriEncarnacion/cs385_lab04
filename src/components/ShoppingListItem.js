@@ -1,10 +1,6 @@
 import * as React from "react";
 
 export function ShoppingListItem(props) {
-  const handleRemove = () => {
-    props.onDelete(props.index)();
-  };
-
   return (
     <li
       className="list__item"
@@ -12,7 +8,7 @@ export function ShoppingListItem(props) {
       onClick={props.onClick}
     >
       {props.name}
-      <button onClick={handleRemove}> X </button>
+      <button onClick={props.onDelete}> X </button>
     </li>
   );
 }

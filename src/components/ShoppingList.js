@@ -9,21 +9,25 @@ export function ShoppingList(props) {
 
   // Handle adding the item to the cart
   const addItem = newItem => {
-    const tempObj = { label: newItem, inCart: true };
+    const tempObj = { label: newItem, inCart: false };
     setList([...list, tempObj]);
   };
 
   // Handle removing the item from the cart
   const removeItem = index => event => {
+    event.stopPropagation();
     console.log("Trying to remove index", index, "from the list");
-
     setList([...list.slice(0, index), ...list.slice(index + 1)]);
   };
 
   const toggleInCart = index => () => {
     console.log("Trying to toggle index", index, "from in/out of the cart");
     // Write your code to handle toggling the item's inCart flag in the cart
-    // setList(!index.inCart);
+    setList([
+      ...list.slice(0, index),
+      { ...list[index], inCart: !list[index].inCart },
+      ...list.slice(index + 1)
+    ]);
   };
 
   return (
@@ -32,11 +36,10 @@ export function ShoppingList(props) {
         {list.map((item, index) => (
           <ShoppingListItem
             key={index}
-            index={index}
             name={item.label}
-            // inCart={item.inCart}
-            // onClick={toggleInCart}
-            onDelete={removeItem}
+            inCart={item.inCart}
+            onClick={toggleInCart(index)}
+            onDelete={removeItem(index)}
           />
         ))}
       </ul>
